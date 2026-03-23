@@ -1,0 +1,1894 @@
+Screens:
+  scr_Detail:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+      OnVisible: |+
+        =/*Set(
+            varGatePassNo,
+            'Flow|I|GatePassIDGenerator'.Run().gatepassno
+        );*/
+        ClearCollect(colGatePassItems,[]);
+        //Set varoable false and hide the container 
+        Set(gblShowItemForm,false);
+
+    Children:
+      - con_scr_Detail:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(245, 245, 245, 1)
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =16
+            PaddingBottom: =16
+            PaddingLeft: =16
+            PaddingRight: =16
+            PaddingTop: =16
+            Width: =Parent.Width
+          Children:
+            - con_scr_Detail_Header:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =75
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                Children:
+                  - ButtonCanvas1_1:
+                      Control: Button@0.0.45
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        Appearance: ='ButtonCanvas.Appearance'.Transparent
+                        FontColor: =App.Theme.Colors.Primary
+                        FontSize: =25
+                        Height: =Parent.Height
+                        Icon: ="ChevronLeft"
+                        IconStyle: ='ButtonCanvas.IconStyle'.Filled
+                        Layout: ='ButtonCanvas.Layout'.IconOnly
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: |+
+                          =//Navigate(scr_Dashboard,ScreenTransition.CoverRight);
+                          ResetForm(Detail_Form);
+                          ResetForm(Items_Form);
+                          Set(gblSelectedRow, Blank());
+                          Set(gblCurrentSelectedItem1, Blank());
+                          Set(gblFormMode, FormMode.New);
+                          Navigate(scr_Dashboard, ScreenTransition.Fade)
+                        Width: =32
+                  - lbl_Body_Title_View_Form_1:
+                      Control: Text@0.0.51
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =1
+                        Font: =Font.'Open Sans'
+                        FontColor: =RGBA(51, 51, 51, 1)
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        PaddingLeft: =14
+                        Size: =//If('View Form Screen'.Size = ScreenSize.Small,fxSizeParameters.Mobile.FontSize.SectionTitle,fxSizeParameters.Desktop.FontSize.SectionTitle)
+                        Text: ="Gate Pass Detail Screen"
+                        VerticalAlign: =VerticalAlign.Middle
+                        Weight: ='TextCanvas.Weight'.Semibold
+            - con_scr_Detail_Form:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =40
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinWidth: =25
+                  PaddingBottom: =2
+                  PaddingLeft: =2
+                  PaddingRight: =20
+                  PaddingTop: =2
+                  Width: =50
+                Children:
+                  - txt New Request Title:
+                      Control: Label@2.5.1
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =1
+                        FontWeight: =FontWeight.Semibold
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        PaddingLeft: =10
+                        Size: =15
+                        Text: |+
+                          =If(Detail_Form.Mode = FormMode.New,"New Gate Pass",DataCardValue10.Selected.Value & " - " & DataCardValue14.Selected.Value & ": " & TXT_GatePassNo.Value)
+
+
+
+            - con_scr_Detail_Bottom:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(245, 245, 245, 1)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =16
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  LayoutWrap: =true
+                  PaddingBottom: =2
+                  PaddingLeft: =2
+                  PaddingRight: =2
+                  PaddingTop: =2
+                Children:
+                  - scr_Detail_Body:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =7
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                      Children:
+                        - scr_Detail_Body_Sub:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =2
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - Detail_Form:
+                                  Control: Form@2.4.4
+                                  Layout: Vertical
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    DataSource: =SPList_GatePass_GPDetails
+                                    DefaultMode: =gblFormMode
+                                    Item: |+
+                                      =//Item property should be when record get selected it shold show gal record and when new record is created then it should be blank 
+                                      gblSelectedRow
+
+
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    NumberOfColumns: =1
+                                    OnSuccess: |+
+                                      =If(
+                                          IsBlank(Detail_Form.LastSubmit.GatePassNo),
+                                          Patch(
+                                              SPList_GatePass_GPDetails,
+                                              Detail_Form.LastSubmit,
+                                              {
+                                                  GatePassNo: 
+                                                      "SONO/" & 
+                                                      Text(Month(Today()), "00") & "/" & 
+                                                      Text(Detail_Form.LastSubmit.ID, "0000"),
+                                                  Status: {Value: "Draft"}
+                                              }
+                                          )
+                                      );
+                                      //'Flow|I|GenerateGatePassPDF'.Run(Detail_Form.LastSubmit.ID);
+                                      ResetForm(Detail_Form);
+                                      Navigate(scr_Dashboard, ScreenTransition.Fade);
+
+                                  Children:
+                                    - Return Type_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: ComboBoxEdit
+                                        IsLocked: true
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="AssetType"
+                                          Default: =ThisItem.'Return Type'
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPDetails],DataSourceInfo.DisplayName,'Return Type')
+                                          Required: =false
+                                          Update: =DataCardValue14.Selected
+                                          Width: =1298
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =0
+                                        Children:
+                                          - DataCardKey17:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue14:
+                                              Control: ComboBox@0.0.51
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DefaultSelectedItems: =[Parent.Default]
+                                                DisplayMode: =Parent.DisplayMode
+                                                Items: =Choices([@SPList_GatePass_GPDetails].'Return Type')
+                                                OnChange: |+
+                                                  =If(
+                                                      Self.Selected.Value <> "Returnable",
+                                                      UpdateContext({locResetDueDate:true})
+                                                  )
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey17.Y + DataCardKey17.Height + 4
+                                          - ErrorMessage17:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue14.Y + DataCardValue14.Height
+                                          - StarVisible17:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =20
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey17.Y
+                                    - Requested Date_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: DateEdit
+                                        IsLocked: true
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="Date"
+                                          Default: =ThisItem.'Requested Date'
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPDetails],DataSourceInfo.DisplayName,'Requested Date')
+                                          Required: =false
+                                          Update: =DataCardValue9.SelectedDate
+                                          Width: =1298
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =1
+                                        Children:
+                                          - DataCardKey11:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue9:
+                                              Control: DatePicker@0.0.46
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: =Parent.DisplayMode
+                                                EndDate: =Date(Year(Today())+100, 12, 31)
+                                                SelectedDate: =Parent.Default
+                                                StartDate: =Date(1900, 1, 1)
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey11.Y + DataCardKey11.Height + 4
+                                          - ErrorMessage11:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue9.Y + DataCardValue9.Height
+                                          - StarVisible11:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey11.Y
+                                    - Gate Pass Type_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: ComboBoxEdit
+                                        IsLocked: true
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="FormType"
+                                          Default: =ThisItem.'Gate Pass Type'
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPDetails],DataSourceInfo.DisplayName,'Gate Pass Type')
+                                          Required: =false
+                                          Update: =DataCardValue10.Selected
+                                          Width: =1298
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =2
+                                        Children:
+                                          - DataCardKey13:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue10:
+                                              Control: ComboBox@0.0.51
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DefaultSelectedItems: =[Parent.Default]
+                                                DisplayMode: =Parent.DisplayMode
+                                                Items: =Choices([@SPList_GatePass_GPDetails].'Gate Pass Type')
+                                                OnChange: |+
+                                                  =If(
+                                                      Self.Selected.Value <> "External",
+                                                      Reset(DataCardValue4)
+                                                  )
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey13.Y + DataCardKey13.Height + 4
+                                          - ErrorMessage13:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue10.Y + DataCardValue10.Height
+                                          - StarVisible13:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =20
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey13.Y
+                                    - DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: BlankCard
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          Height: =40
+                                          Width: =1298
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =3
+                                        Children:
+                                          - Text1:
+                                              Control: ModernText@1.0.0
+                                              Properties:
+                                                FontWeight: =FontWeight.Bold
+                                                Height: =Parent.Height
+                                                Size: =18
+                                                Text: ="Sender Address"
+                                                Width: =Parent.Width
+                                    - Location_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: ComboBoxEdit
+                                        IsLocked: true
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="SenderLocation"
+                                          Default: =ThisItem.Location
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPDetails],DataSourceInfo.DisplayName,Location)
+                                          Required: =false
+                                          Update: =DataCardValue8.Selected
+                                          Width: =1298
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =4
+                                        Children:
+                                          - DataCardKey10:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue8:
+                                              Control: ComboBox@0.0.51
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DefaultSelectedItems: =[Parent.Default]
+                                                DisplayMode: =Parent.DisplayMode
+                                                InputTextPlaceholder: ="Find Location"
+                                                Items: =Choices([@SPList_GatePass_GPDetails].Location)
+                                                OnChange: |-
+                                                  =Reset(DataCardValue11);
+                                                  Reset(DataCardValue13)
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey10.Y + DataCardKey10.Height + 4
+                                          - ErrorMessage10:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue8.Y + DataCardValue8.Height
+                                          - StarVisible10:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =20
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey10.Y
+                                    - Address_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: TextualEdit
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="SenderAddress"
+                                          Default: =ThisItem.Address
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPDetails],DataSourceInfo.DisplayName,Address)
+                                          MaxLength: =DataSourceInfo([@SPList_GatePass_GPDetails], DataSourceInfo.MaxLength, Address)
+                                          Required: =false
+                                          Update: =DataCardValue11.Value
+                                          Width: =1298
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =5
+                                        Children:
+                                          - DataCardKey14:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue11:
+                                              Control: TextInput@0.0.54
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: |-
+                                                  =//Parent.DisplayMode
+                                                  DisplayMode.View
+                                                Height: |+
+                                                  =32
+                                                Mode: |+
+                                                  ="'TextInputCanvas.Mode'.TextInputModeSingleLine"
+
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Value: |-
+                                                  =Switch(
+                                                      DataCardValue8.Selected.Value,
+                                                      "Bangalore", "Plot No. 180,1st Floor,MFAR Silverline Tech Park,EPIP Zone, 2nd Phase Whitefield,Bangalore, Karnataka, 560066",
+                                                      "Pune","7th Floor,Amar Madhuban Tech Park,opposite Audi Showroom,Baner, Pune,Maharashtra 411069"
+                                                  )
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey14.Y + DataCardKey14.Height + 4
+                                          - ErrorMessage14:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue11.Y + DataCardValue11.Height
+                                          - StarVisible14:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey14.Y
+                                    - Mobile No_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: TextualEdit
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="SenderMobileNo"
+                                          Default: =ThisItem.'Mobile No'
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPDetails],DataSourceInfo.DisplayName,'Mobile No')
+                                          MaxLength: =DataSourceInfo([@SPList_GatePass_GPDetails], DataSourceInfo.MaxLength, 'Mobile No')
+                                          Required: =false
+                                          Update: =DataCardValue13.Value
+                                          Width: =1298
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =6
+                                        Children:
+                                          - DataCardKey15:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue13:
+                                              Control: TextInput@0.0.54
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: |-
+                                                  =//Parent.DisplayMode
+                                                  DisplayMode.View
+                                                Mode: ="'TextInputCanvas.Mode'.TextInputModeSingleLine"
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Value: |-
+                                                  =Switch(
+                                                      DataCardValue8.Selected.Value,
+                                                      "Bangalore", "+91 80 6758 0900",
+                                                      "Pune", "080675 80900"
+                                                  )
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey15.Y + DataCardKey15.Height + 4
+                                          - ErrorMessage15:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue13.Y + DataCardValue13.Height
+                                          - StarVisible15:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey15.Y
+                                    - DataCard2:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: BlankCard
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          Height: =40
+                                          Width: =1298
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =7
+                                        Children:
+                                          - Text2:
+                                              Control: ModernText@1.0.0
+                                              Properties:
+                                                FontWeight: =FontWeight.Bold
+                                                Height: =Parent.Height
+                                                Size: =18
+                                                Text: ="Receiver Address"
+                                                Width: =Parent.Width
+                                    - CompanyName_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: TextualEdit
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="CompanyName"
+                                          Default: =ThisItem.CompanyName
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPDetails],DataSourceInfo.DisplayName,CompanyName)
+                                          MaxLength: =DataSourceInfo([@SPList_GatePass_GPDetails], DataSourceInfo.MaxLength, CompanyName)
+                                          Required: =false
+                                          Update: |+
+                                            =DataCardValue4.Value
+                                          Visible: |-
+                                            =If(
+                                                DataCardValue10.Selected.Value = "External",
+                                                true,
+                                                false
+                                            )
+                                          Width: =1298
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =8
+                                        Children:
+                                          - DataCardKey4:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue4:
+                                              Control: TextInput@0.0.54
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: =Parent.DisplayMode
+                                                Mode: ="'TextInputCanvas.Mode'.TextInputModeSingleLine"
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Value: =Parent.Default
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey4.Y + DataCardKey4.Height + 4
+                                          - ErrorMessage4:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue4.Y + DataCardValue4.Height
+                                          - StarVisible4:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey4.Y
+                                    - ReceiverName_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: TextualEdit
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="ReceiverName"
+                                          Default: =ThisItem.ReceiverName
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPDetails],DataSourceInfo.DisplayName,ReceiverName)
+                                          MaxLength: =DataSourceInfo([@SPList_GatePass_GPDetails], DataSourceInfo.MaxLength, ReceiverName)
+                                          Required: =false
+                                          Update: |+
+                                            =If(
+                                                DataCardValue10.Selected.Value = "Internal",
+                                                cmb_UserName_2.Selected.DisplayName,
+                                                DataCardValue17.Value
+                                            )
+                                          Width: =1298
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =9
+                                        Children:
+                                          - DataCardKey19:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue17:
+                                              Control: TextInput@0.0.54
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: =Parent.DisplayMode
+                                                Mode: ="'TextInputCanvas.Mode'.TextInputModeSingleLine"
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Value: |+
+                                                  =If(
+                                                      Detail_Form.Mode = FormMode.View,
+                                                      ThisItem.ReceiverName,
+                                                      Parent.Default
+                                                  )
+                                                Visible: |+
+                                                  =/*If(
+                                                      IsBlank(DataCardValue10.Selected.Value) || DataCardValue10.Selected.Value <> "Internal",
+                                                      true,
+                                                      false
+                                                  )*/
+                                                  Detail_Form.Mode = FormMode.View ||
+                                                  DataCardValue10.Selected.Value <> "Internal"
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey19.Y + DataCardKey19.Height + 4
+                                          - ErrorMessage19:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue17.Y + DataCardValue17.Height
+                                          - StarVisible19:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey19.Y
+                                          - cmb_UserName_2:
+                                              Control: ComboBox@0.0.51
+                                              Properties:
+                                                DefaultSelectedItems: =[Parent.Default]
+                                                DisplayMode: |
+                                                  =If(
+                                                      DataCardValue10.Selected.Value = "Internal",
+                                                      DisplayMode.Edit,
+                                                      DisplayMode.Disabled
+                                                  )
+                                                InputTextPlaceholder: ="Find Employee Name"
+                                                Items: "=Office365Users.SearchUserV2(\n    {\n        searchTerm: Self.SearchText,\n        isSearchTermRequired: false,\n        top: 10\n    }\n).value "
+                                                OnChange: |-
+                                                  =UpdateContext({locManager: Office365Users.ManagerV2(Self.Selected.Mail)});
+                                                Required: |
+                                                  =true
+                                                Visible: |+
+                                                  =Detail_Form.Mode <> FormMode.View &&
+                                                  DataCardValue10.Selected.Value = "Internal"
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey19.Y + DataCardKey19.Height + 4
+                                              Children:
+                                                - DisplayName2_2:
+                                                    Control: ComboBoxDataField@1.5.0
+                                                    Variant: textualColumn
+                                                    IsLocked: true
+                                                    Properties:
+                                                      FieldDisplayName: ="DisplayName"
+                                                      FieldName: ="DisplayName"
+                                                      FieldType: ="s"
+                                                      Order: =1
+                                    - ReceiverAddress_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: TextualEdit
+                                        IsLocked: true
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="ReceiverAddress"
+                                          Default: =ThisItem.ReceiverAddress
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPDetails],DataSourceInfo.DisplayName,ReceiverAddress)
+                                          Height: |+
+                                            =70
+                                          MaxLength: =DataSourceInfo([@SPList_GatePass_GPDetails], DataSourceInfo.MaxLength, ReceiverAddress)
+                                          Required: =false
+                                          Update: =DataCardValue15.Value
+                                          Width: =1298
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =10
+                                        Children:
+                                          - DataCardKey18:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue15:
+                                              Control: TextInput@0.0.54
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: |+
+                                                  =32
+                                                Mode: |+
+                                                  ="'TextInputCanvas.Mode'.TextInputModeSingleLine"
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Value: =Parent.Default
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey18.Y + DataCardKey18.Height + 4
+                                          - ErrorMessage18:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue15.Y + DataCardValue15.Height
+                                          - StarVisible18:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey18.Y
+                                    - ReceiverMobileNo_DataCard2:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: NumberEdit
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="ReceiverMobileNo"
+                                          Default: =ThisItem.ReceiverMobileNo
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPDetails],DataSourceInfo.DisplayName,ReceiverMobileNo)
+                                          Required: =false
+                                          Update: =Value(TextInputCanvas1.Value)
+                                          Width: =1298
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =11
+                                        Children:
+                                          - DataCardKey20:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - ErrorMessage20:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =TextInputCanvas1.Y + TextInputCanvas1.Height
+                                          - StarVisible20:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey20.Y
+                                          - TextInputCanvas1:
+                                              Control: TextInput@0.0.54
+                                              Properties:
+                                                MaxLength: =10
+                                                Mode: |+
+                                                  ="SingleLine"
+
+                                                Value: |
+                                                  =Parent.Default
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =40
+                                    - GatePassNo_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: TextualEdit
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="GatePassNo"
+                                          Default: =ThisItem.GatePassNo
+                                          DisplayMode: =DisplayMode.View
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPDetails],DataSourceInfo.DisplayName,GatePassNo)
+                                          MaxLength: =DataSourceInfo([@SPList_GatePass_GPDetails], DataSourceInfo.MaxLength, GatePassNo)
+                                          Required: =false
+                                          Update: =TXT_GatePassNo.Value
+                                          Visible: =false
+                                          Width: =1298
+                                          X: =0
+                                          Y: =12
+                                        Children:
+                                          - DataCardKey5:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - TXT_GatePassNo:
+                                              Control: TextInput@0.0.54
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: =Parent.DisplayMode
+                                                Mode: ="'TextInputCanvas.Mode'.TextInputModeSingleLine"
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Value: |+
+                                                  =ThisItem.GatePassNo
+
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey5.Y + DataCardKey5.Height + 4
+                                          - ErrorMessage5:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =TXT_GatePassNo.Y + TXT_GatePassNo.Height
+                                          - StarVisible5:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey5.Y
+                        - scr_Detail_Body_Sub2:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0.8
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =2
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                              Visible: =gblShowItemForm
+                            Children:
+                              - Items_Form:
+                                  Control: Form@2.4.4
+                                  Layout: Vertical
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    DataSource: =SPList_GatePass_GPItemDetails
+                                    DefaultMode: =varformmode
+                                    Item: |+
+                                      =//LookUp(SPList_GatePass_GPItemDetails,GatePass_ID=gblCurrentSelectedItem1.GatePass_ID)
+                                      If(
+                                          varformmode = FormMode.New,
+                                          Defaults(SPList_GatePass_GPItemDetails),
+                                          LookUp(SPList_GatePass_GPItemDetails, ID = gblCurrentSelectedItem1.ID)
+                                      )
+
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    NumberOfColumns: =1
+                                  Children:
+                                    - SerialNo_DataCard2:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: TextualEdit
+                                        IsLocked: true
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="SerialNo"
+                                          Default: =ThisItem.SerialNo
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPItemDetails],DataSourceInfo.DisplayName,SerialNo)
+                                          MaxLength: =DataSourceInfo([@SPList_GatePass_GPItemDetails], DataSourceInfo.MaxLength, SerialNo)
+                                          Required: =false
+                                          Update: =DataCardValue21.Value
+                                          Width: =359
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =0
+                                        Children:
+                                          - DataCardKey23:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue21:
+                                              Control: TextInput@0.0.54
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: =Parent.DisplayMode
+                                                Mode: ="'TextInputCanvas.Mode'.TextInputModeSingleLine"
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Value: =Parent.Default
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey23.Y + DataCardKey23.Height + 4
+                                          - ErrorMessage23:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue21.Y + DataCardValue21.Height
+                                          - StarVisible23:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey23.Y
+                                    - Description_DataCard3:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: TextualEdit
+                                        IsLocked: true
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="Description"
+                                          Default: =ThisItem.Description
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPItemDetails],DataSourceInfo.DisplayName,Description)
+                                          MaxLength: =DataSourceInfo([@SPList_GatePass_GPItemDetails], DataSourceInfo.MaxLength, Description)
+                                          Required: =false
+                                          Update: =DataCardValue22.Value
+                                          Width: =359
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =1
+                                        Children:
+                                          - DataCardKey24:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue22:
+                                              Control: TextInput@0.0.54
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: =Parent.DisplayMode
+                                                Mode: ="'TextInputCanvas.Mode'.TextInputModeSingleLine"
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Value: =Parent.Default
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey24.Y + DataCardKey24.Height + 4
+                                          - ErrorMessage24:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue22.Y + DataCardValue22.Height
+                                          - StarVisible24:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey24.Y
+                                    - AssetTagandSerialNumber_DataCard2:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: TextualEdit
+                                        IsLocked: true
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="AssetTagandSerialNumber"
+                                          Default: =ThisItem.AssetTagandSerialNumber
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPItemDetails],DataSourceInfo.DisplayName,AssetTagandSerialNumber)
+                                          MaxLength: =DataSourceInfo([@SPList_GatePass_GPItemDetails], DataSourceInfo.MaxLength, AssetTagandSerialNumber)
+                                          Required: =false
+                                          Update: =DataCardValue23.Value
+                                          Width: =359
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =2
+                                        Children:
+                                          - DataCardKey25:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue23:
+                                              Control: TextInput@0.0.54
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: =Parent.DisplayMode
+                                                Mode: ="'TextInputCanvas.Mode'.TextInputModeSingleLine"
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Value: =Parent.Default
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey25.Y + DataCardKey25.Height + 4
+                                          - ErrorMessage25:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue23.Y + DataCardValue23.Height
+                                          - StarVisible25:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey25.Y
+                                    - Quantity_DataCard3:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: NumberEdit
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="Quantity"
+                                          Default: =ThisItem.Quantity
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPItemDetails],DataSourceInfo.DisplayName,Quantity)
+                                          Required: =false
+                                          Update: |+
+                                            =Value(DataCardValue24.Value)
+                                            //DataCardValue24.Value
+
+                                          Width: =359
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =3
+                                        Children:
+                                          - DataCardKey26:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue24:
+                                              Control: NumberInput@2.9.12
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: =Parent.DisplayMode
+                                                Max: =Blank()
+                                                Min: =Blank()
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Value: =Parent.Default
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey26.Y + DataCardKey26.Height + 4
+                                          - ErrorMessage26:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue24.Y + DataCardValue24.Height
+                                          - StarVisible26:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey26.Y
+                                    - Purpose_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: TextualEdit
+                                        IsLocked: true
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="Purpose"
+                                          Default: =ThisItem.Purpose
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPItemDetails],DataSourceInfo.DisplayName,'Purpose')
+                                          MaxLength: =DataSourceInfo([@SPList_GatePass_GPItemDetails], DataSourceInfo.MaxLength, 'Purpose')
+                                          Required: =false
+                                          Update: =DataCardValue1.Value
+                                          Width: =359
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =4
+                                        Children:
+                                          - DataCardKey1:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue1:
+                                              Control: TextInput@0.0.54
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: =Parent.DisplayMode
+                                                Mode: ="'TextInputCanvas.Mode'.TextInputModeSingleLine"
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Value: =Parent.Default
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey1.Y + DataCardKey1.Height + 4
+                                          - ErrorMessage1:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue1.Y + DataCardValue1.Height
+                                          - StarVisible1:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey1.Y
+                                    - GetPass_ID_DataCard2:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: NumberEdit
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="GetPass_ID"
+                                          Default: =ThisItem.GetPass_ID
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPItemDetails],DataSourceInfo.DisplayName,GetPass_ID)
+                                          Required: =false
+                                          Update: =Value(DataCardValue25.Value)
+                                          Visible: =false
+                                          Width: =359
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =5
+                                        Children:
+                                          - DataCardKey27:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue25:
+                                              Control: NumberInput@2.9.12
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: =Parent.DisplayMode
+                                                Max: =Blank()
+                                                Min: =Blank()
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Value: =gblSelectedRow.ID
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey27.Y + DataCardKey27.Height + 4
+                                          - ErrorMessage27:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue25.Y + DataCardValue25.Height
+                                          - StarVisible27:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey27.Y
+                                    - DueDate_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: DateEdit
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="DueDate"
+                                          Default: =ThisItem.DueDate
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPItemDetails],DataSourceInfo.DisplayName,'DueDate')
+                                          Required: =false
+                                          Update: =DataCardValue3.SelectedDate
+                                          Visible: |+
+                                            =If(
+                                                DataCardValue14.Selected.Value = "Returnable",
+                                                true,
+                                                false
+                                            )
+                                          Width: =359
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =6
+                                        Children:
+                                          - DataCardKey3:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue3:
+                                              Control: DatePicker@0.0.46
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: |+
+                                                  =Parent.DisplayMode
+                                                EndDate: =Date(Year(Today())+100, 12, 31)
+                                                OnChange: |+
+                                                  =UpdateContext({locResetDueDate:false})
+                                                SelectedDate: =Parent.Default
+                                                StartDate: =Date(1900, 1, 1)
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey3.Y + DataCardKey3.Height + 4
+                                          - ErrorMessage3:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue3.Y + DataCardValue3.Height
+                                          - StarVisible3:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey3.Y
+                                    - Rate_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: NumberEdit
+                                        IsLocked: true
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="Rate"
+                                          Default: =ThisItem.Rate
+                                          DisplayName: =DataSourceInfo([@SPList_GatePass_GPItemDetails],DataSourceInfo.DisplayName,'Rate')
+                                          Required: =false
+                                          Update: =Value(DataCardValue2.Value)
+                                          Width: =515
+                                          X: =0
+                                          Y: =7
+                                        Children:
+                                          - DataCardKey2:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Height: =22
+                                                Text: =Parent.DisplayName
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue2:
+                                              Control: NumberInput@2.9.12
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DisplayMode: =Parent.DisplayMode
+                                                Max: =Blank()
+                                                Min: =Blank()
+                                                ValidationState: =If(IsBlank(Parent.Error), "None", "Error")
+                                                Value: =Parent.Default
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey2.Y + DataCardKey2.Height + 4
+                                          - ErrorMessage2:
+                                              Control: Text@0.0.51
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue2.Y + DataCardValue2.Height
+                                          - StarVisible2:
+                                              Control: Text@0.0.51
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                Height: =30
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey2.Y
+                              - btn_save:
+                                  Control: Button@0.0.45
+                                  Properties:
+                                    Icon: ="Save"
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    OnSelect: |-
+                                      =SubmitForm(Items_Form);
+                                      ResetForm(Items_Form);
+                                      Set(gblShowItemForm, false);
+                                      Set(gblCurrentSelectedItem1,Blank());
+                                      Refresh(SPList_GatePass_GPItemDetails);
+                                    Text: ="Save"
+                                    Width: =Parent.Width - 48
+                              - btn_cancel:
+                                  Control: Button@0.0.45
+                                  Properties:
+                                    Icon: ="DismissCircle"
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    OnSelect: |-
+                                      =Set(gblShowItemForm, false);
+                                      Set(
+                                          gblCurrentSelectedItem1,
+                                         Blank()
+                                      );
+                                      ResetForm(Items_Form)
+                                    Text: ="Cancel"
+                                    Width: =Parent.Width - 48
+                  - scr_Detail_Body_Sub3:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =3
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                        Visible: |+
+                          =//If(Main_form.Mode=FormMode.View && Count(Filter(SPList_GatePass_GPItemDetails,GatePass_ID=gblCurrentSelectedItem.ID)),true,false)
+                          //show only when the multiple item is added for the above record show inside the form
+                          /*Main_form.Mode = FormMode.View &&
+                          !IsEmpty(
+                              Filter(
+                                  SPList_GatePass_GPItemDetails,
+                                  GatePass_ID = gblCurrentSelectedItem.ID
+                              )
+                          )*/
+                          Detail_Form.Mode = FormMode.View &&
+                          !IsEmpty(
+                              Filter(
+                                  SPList_GatePass_GPItemDetails,
+                                  GetPass_ID = gblSelectedRow.ID
+                              )
+                          )
+
+                      Children:
+                        - Item_tbl:
+                            Control: Table@1.0.278
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Items: |+
+                                =//Filter(SPList_GatePass_GPItemDetails,GatePass_ID=gblCurrentSelectedItem.ID)
+                                Filter(
+                                    SPList_GatePass_GPItemDetails,
+                                    GetPass_ID = gblSelectedRow.ID
+                                )
+
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              OnSelect: |-
+                                =Set(
+                                    gblCurrentSelectedItem1,
+                                    Item_tbl.Selected
+                                );
+                            Children:
+                              - GetPass_ID1:
+                                  Control: TableDataField@1.5.0
+                                  Variant: textualColumn
+                                  IsLocked: true
+                                  Properties:
+                                    FieldDisplayName: ="GetPass_ID"
+                                    FieldName: ="GetPass_ID"
+                                    FieldType: ="n"
+                                    Order: =2
+                              - SerialNo1:
+                                  Control: TableDataField@1.5.0
+                                  Variant: textualColumn
+                                  IsLocked: true
+                                  Properties:
+                                    FieldDisplayName: ="SerialNo"
+                                    FieldName: ="SerialNo"
+                                    FieldType: ="s"
+                                    Order: =3
+                              - Description1:
+                                  Control: TableDataField@1.5.0
+                                  Variant: textualColumn
+                                  IsLocked: true
+                                  Properties:
+                                    FieldDisplayName: ="Description"
+                                    FieldName: ="Description"
+                                    FieldType: ="s"
+                                    Order: =3
+                              - AssetTagandSerialNumber1:
+                                  Control: TableDataField@1.5.0
+                                  Variant: textualColumn
+                                  IsLocked: true
+                                  Properties:
+                                    FieldDisplayName: ="AssetTagandSerialNumber"
+                                    FieldName: ="AssetTagandSerialNumber"
+                                    FieldType: ="s"
+                                    Order: =4
+                              - Quantity1:
+                                  Control: TableDataField@1.5.0
+                                  Variant: textualColumn
+                                  IsLocked: true
+                                  Properties:
+                                    FieldDisplayName: ="Quantity"
+                                    FieldName: ="Quantity"
+                                    FieldType: ="n"
+                                    Order: =5
+                              - Purpose1:
+                                  Control: TableDataField@1.5.0
+                                  Variant: textualColumn
+                                  IsLocked: true
+                                  Properties:
+                                    FieldDisplayName: ="Purpose"
+                                    FieldName: ="Purpose"
+                                    FieldType: ="s"
+                                    Order: =6
+                              - Rate1:
+                                  Control: TableDataField@1.5.0
+                                  Variant: textualColumn
+                                  IsLocked: true
+                                  Properties:
+                                    FieldDisplayName: ="Rate"
+                                    FieldName: ="Rate"
+                                    FieldType: ="n"
+                                    Order: =7
+                              - DueDate1:
+                                  Control: TableDataField@1.5.0
+                                  Variant: textualColumn
+                                  IsLocked: true
+                                  Properties:
+                                    FieldDisplayName: ="DueDate"
+                                    FieldName: ="DueDate"
+                                    FieldType: ="D"
+                                    Order: =8
+                                    Visible: |+
+                                      =If(
+                                          gblSelectedRow.'Return Type'.Value = "Returnable",
+                                          true,
+                                          false
+                                      )
+            - con_scr_Detail_Bottom_Buttons:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =60
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =16
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                Children:
+                  - btn_scr_Detail_Bottom_Save:
+                      Control: Button@0.0.45
+                      Properties:
+                        DisplayMode: |-
+                          =/*If(
+                              frm_PO_Details_Screen_Bottom_2_Create_PO_Form.Valid && 
+                              (
+                                  frm_PO_Details_Screen_Bottom_2_Create_PO_Form.Mode = FormMode.Edit || 
+                                  LookUp(SPList_ExpenseTracker_Purchase_Orders, ID = varPOID).Status.Value = "New"
+                              ),
+                              DisplayMode.Edit,
+                              DisplayMode.Disabled
+                          )
+                          */
+                        Height: =40
+                        Icon: ="Save"
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: |-
+                          =SubmitForm(Detail_Form);
+                          //ResetForm(Detail_Form);
+                          //Navigate(scr_Dashboard);
+                        Text: ="Save"
+                        Visible: =If(Detail_Form.Mode=FormMode.Edit||Detail_Form.Mode=FormMode.New,true,false)
+                  - btn_Submit_For_Approval:
+                      Control: Button@0.0.45
+                      Properties:
+                        DisplayMode: |-
+                          =/*If(
+                              frm_PO_Details_Screen_Bottom_2_Create_PO_Form.Valid && 
+                              (
+                                  frm_PO_Details_Screen_Bottom_2_Create_PO_Form.Mode = FormMode.Edit || 
+                                  LookUp(SPList_ExpenseTracker_Purchase_Orders, ID = varPOID).Status.Value = "New"
+                              ),
+                              DisplayMode.Edit,
+                              DisplayMode.Disabled
+                          )
+                          */
+                        Height: =40
+                        Icon: ="ArrowExit"
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: |-
+                          =/*'Flow|I|GenerateGatePassPDF'.Run(gblSelectedRow.ID);
+                          Refresh(SPList_GatePass_GPDetails);
+                          Set(
+                              gblSelectedRow, 
+                              LookUp(SPList_GatePass_GPDetails, ID = gblSelectedRow.ID)
+                          );
+                          Notify("Submitted for Approval successfully!", NotificationType.Success);*/
+                          Patch(
+                              SPList_GatePass_GPDetails,
+                              {ID: gblSelectedRow.ID},
+                              {Status: {Value: "Pending"}}
+                          );
+                          'Flow|I|GenerateGatePassPDF'.Run(gblSelectedRow.ID);
+                          Refresh(SPList_GatePass_GPDetails);
+                          Set(
+                              gblSelectedRow,
+                              LookUp(SPList_GatePass_GPDetails, ID = gblSelectedRow.ID)
+                          );
+                          Notify("Submitted for Approval successfully!", NotificationType.Success);
+                        Text: ="Submit for Approval"
+                        Visible: |-
+                          =Detail_Form.Mode = FormMode.View && 
+                                    !IsBlank(gblSelectedRow.ID) &&
+                                    !IsEmpty(Filter(SPList_GatePass_GPItemDetails, GetPass_ID = gblSelectedRow.ID)) &&
+                                    gblSelectedRow.Status.Value = "Draft"
+                        Width: =240
+                  - btn_scr_Detail_Bottom_Add_Item:
+                      Control: Button@0.0.45
+                      Properties:
+                        Appearance: ='ButtonCanvas.Appearance'.Secondary
+                        DisplayMode: |
+                          =//If(varFormMode1 = FormMode.View, DisplayMode.Disabled, DisplayMode.Edit)
+                        Height: =40
+                        Icon: ="Add"
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: |-
+                          =Set(gblShowItemForm, true);
+                          Set(varformmode,FormMode.New);
+                          NewForm(Items_Form);
+                          //ResetForm(Form2)
+                        Text: |-
+                          =/*If(
+                              !IsBlank(Table2.Selected), 
+                              "Edit Item", 
+                              "Add Item"
+                          )
+                          */
+                          "Add Item"
+                        Visible: =If(Detail_Form.Mode=FormMode.View,true,false)
+                        Width: =120
+                  - btn_scr_Detail_Bottom_Edit_Item:
+                      Control: Button@0.0.45
+                      Properties:
+                        Appearance: ='ButtonCanvas.Appearance'.Secondary
+                        DisplayMode: |
+                          =//If(varFormMode1 = FormMode.View, DisplayMode.Disabled, DisplayMode.Edit)
+                        Height: =40
+                        Icon: ="Edit"
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: |-
+                          =Set(gblCurrentSelectedItem1, Item_tbl.Selected);
+                          Set(gblShowItemForm, true);
+                          Set(varformmode,FormMode.Edit);
+                          EditForm(Items_Form);
+                        Text: ="Edit Item"
+                        Visible: |+
+                          =If( IsBlank(
+                              gblCurrentSelectedItem1),false,true)
+                        Width: =120
+                  - btn_scr_Detail_Bottom_Delete_Item:
+                      Control: Button@0.0.45
+                      Properties:
+                        Appearance: ='ButtonCanvas.Appearance'.Secondary
+                        DisplayMode: |
+                          =//If(varFormMode1 = FormMode.View, DisplayMode.Disabled, DisplayMode.Edit)
+                        Height: =40
+                        Icon: ="Delete"
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: |
+                          =Remove(
+                              SPList_GatePass_GPItemDetails,
+                              gblCurrentSelectedItem1
+                          );
+
+                          Set(gblCurrentSelectedItem1, Item_tbl.Selected);
+
+                          Refresh(SPList_GatePass_GPItemDetails);
+                        Text: ="Delete Item"
+                        Visible: |
+                          =//If( IsBlank(gblCurrentSelectedItem1),false,true)
+                          !IsBlank(gblCurrentSelectedItem1)
+                        Width: =130
+                  - btn_scr_Detail_Bottom_Create_PDF:
+                      Control: Button@0.0.45
+                      Properties:
+                        DisplayMode: =
+                        Height: =40
+                        Icon: ="Save"
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: |+
+                          =Set(
+                              varGatePassRecord,
+                              gblSelectedRow
+                          );
+                          Set(
+                              varGatePassFolderlink,
+                              "https://ortecbusiness.sharepoint.com/sites/sonovision-aetos-india/dev-db/GatePassPDF"
+                          );
+
+                          Set(
+                              varGatePass_PDF_Path,
+                              varGatePassFolderlink &
+                              "/GatePass_" &
+                              Substitute(TXT_GatePassNo.Value, "/", "_") & ".pdf"
+
+                          );
+                          Download(varGatePass_PDF_Path);
+                        Text: ="Download GatePass"
+                        Visible: =Detail_Form.Mode = FormMode.View && !IsBlank(gblSelectedRow.ID)
+                        Width: =240
+                  - btn_scr_Detail_Bottom_View_PDF:
+                      Control: Button@0.0.45
+                      Properties:
+                        Appearance: ='ButtonCanvas.Appearance'.Secondary
+                        Height: =40
+                        Icon: ="DocumentPdf"
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: |-
+                          =Set(
+                              varGatePassRecord,
+                              gblSelectedRow
+                          );
+                          Set(
+                              varGatePassFolderlink,
+                              "https://ortecbusiness.sharepoint.com/sites/sonovision-aetos-india/dev-db/GatePassPDF"
+                          );
+                          Set(
+                              varGatePass_PDF_Path,
+                              varGatePassFolderlink &
+                              "/GatePass_" &
+                              Substitute(TXT_GatePassNo.Value, "/", "_") & ".pdf"
+
+                          );
+                          Launch(varGatePass_PDF_Path);
+                        Text: ="View GatePass"
+                        Visible: =Detail_Form.Mode = FormMode.View
+                        Width: =180

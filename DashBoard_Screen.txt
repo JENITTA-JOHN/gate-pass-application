@@ -1,0 +1,537 @@
+Screens:
+  scr_Dashboard:
+    Properties:
+      OnVisible: |-
+        =Refresh(SPList_GatePass_GPDetails);
+        Set(locSidebarSelectedKey, 3);
+    Children:
+      - con_scr_Dashboard:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(241, 241, 241, 1)
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Horizontal
+            Width: =Parent.Width
+          Children:
+            - scr_Dashboard_Sidebar:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Start
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =Parent.Height
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =10
+                  LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinWidth: =50
+                  Width: =If(scr_Dashboard.Size = ScreenSize.Small,Parent.Width / 1.8,80)
+                Children:
+                  - img_Ortec_Logo_scr_Dashboard:
+                      Control: Image@2.2.3
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        Height: =90
+                        Image: ="data:image/jpeg;base64,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"
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        Width: =54
+                  - avt_User_Visualize_scr_Dashboard:
+                      Control: Avatar@1.0.40
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        Appearance: ='Avatar.Appearance'.Neutral
+                        Badge: ='Avatar.Badge'.None
+                        Height: =90
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        Shape: ='Avatar.Shape'.Circular
+                        Visible: =scr_Dashboard.Size <> ScreenSize.Small
+                        Width: =If(scr_Dashboard.Size = ScreenSize.Small,32,40)
+            - scr_Dashboard_Main:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  PaddingBottom: |-
+                    =//If(scr_Dashboard.Size = ScreenSize.Small,fxSizeParameters.Mobile.Padding.MainContainer,fxSizeParameters.Desktop.Padding.MainContainer)
+                    20
+                  PaddingLeft: |-
+                    =//If(scr_Dashboard.Size = ScreenSize.Small,fxSizeParameters.Mobile.Padding.MainContainer,fxSizeParameters.Desktop.Padding.MainContainer)
+                    20
+                  PaddingRight: |-
+                    =//If(scr_Dashboard.Size = ScreenSize.Small,fxSizeParameters.Mobile.Padding.MainContainer,fxSizeParameters.Desktop.Padding.MainContainer)
+                    20
+                  Visible: =scr_Dashboard.Size <> ScreenSize.Small || !locIsMobileMenuVisible
+                Children:
+                  - scr_Dashboard_Header:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =If(Self.LayoutDirection = LayoutDirection.Horizontal,80,60)
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =If(scr_Dashboard.Size = ScreenSize.Small,LayoutDirection.Vertical,LayoutDirection.Horizontal)
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinHeight: =90
+                        LayoutMinWidth: =0
+                      Children:
+                        - scr_Dashboard_First_Header:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.SetByContainer
+                              DropShadow: =DropShadow.None
+                              Height: =If(Parent.LayoutDirection = LayoutDirection.Vertical,(Parent.Height/2) - Parent.LayoutGap,Parent.Height)
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinHeight: =50
+                              Width: =If(Parent.LayoutDirection = LayoutDirection.Vertical,Parent.Width,(Parent.Width/2)-Parent.LayoutGap)
+                            Children:
+                              - ico_Header_Hamburger_scr_Dashboard:
+                                  Control: Classic/Icon@2.5.0
+                                  Properties:
+                                    Height: =24
+                                    Icon: =Icon.Hamburger
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    OnSelect: |-
+                                      =UpdateContext({locIsMobileMenuVisible: !locIsMobileMenuVisible})
+                                    Visible: |-
+                                      =//'Visualize Data Screen'.Size = ScreenSize.Small
+                                      false
+                                    Width: =24
+                              - lbl_Header_Title_scr_Dashboard:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    FontColor: =RGBA(51, 51, 51, 1)
+                                    Height: =50
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    PaddingLeft: =0
+                                    Size: |-
+                                      =//If('scr_Dashboard'.Size = ScreenSize.Small,fxSizeParameters.Mobile.FontSize.ScreenTitle,fxSizeParameters.Desktop.FontSize.ScreenTitle)
+                                      20
+                                    Text: ="Gate Pass Application"
+                                    VerticalAlign: =VerticalAlign.Middle
+                                    Weight: ='TextCanvas.Weight'.Bold
+                                    Width: |-
+                                      =If(
+                                          scr_Dashboard_Header.LayoutDirection = LayoutDirection.Vertical,
+                                          Parent.Width - (ico_Header_Hamburger_scr_Dashboard.Width+avt_User_scr_Dashboard.Width) - (2*Parent.LayoutGap),
+                                          Parent.Width
+                                      )
+                              - avt_User_scr_Dashboard:
+                                  Control: Avatar@1.0.40
+                                  Properties:
+                                    Appearance: ='Avatar.Appearance'.Neutral
+                                    Badge: ='Avatar.Badge'.None
+                                    Height: =Parent.Height
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    Shape: ='Avatar.Shape'.Circular
+                                    Visible: =false
+                                    Width: =If(scr_Dashboard.Size = ScreenSize.Small,32,40)
+                  - scr_Dashboard_Body:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Start
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(255, 255, 255, 1)
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =10
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        PaddingBottom: =10
+                        PaddingLeft: =10
+                        PaddingRight: =10
+                        PaddingTop: =10
+                        Width: =Parent.Width - (Parent.PaddingLeft + Parent.PaddingRight)
+                      Children:
+                        - scr_Dashboard_Body_Menu:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0.1
+                              Height: =
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinHeight: =50
+                              LayoutMinWidth: =Parent.Width - (Parent.PaddingBottom + Parent.PaddingTop + Parent.PaddingLeft + Parent.PaddingRight)
+                            Children:
+                              - lbl_Body_Title_Template:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    Align: ='TextCanvas.Align'.Start
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Font: =Font.'Open Sans'
+                                    FontColor: =RGBA(51, 51, 51, 1)
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    PaddingLeft: =20
+                                    Size: =//If(scr_Dashboard.Size = ScreenSize.Small,fxSizeParameters.Mobile.FontSize.SectionTitle,fxSizeParameters.Desktop.FontSize.SectionTitle)
+                                    Text: ="Dashboard"
+                                    VerticalAlign: =VerticalAlign.Middle
+                                    Weight: ='TextCanvas.Weight'.Semibold
+                                    Width: =Parent.Width - tlb_Body_Menu_Template.Width
+                                    Wrap: =false
+                              - tlb_Body_Menu_Template:
+                                  Control: Toolbar@2.0.5
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =Parent.Height - 10
+                                    Items: "=Table(\n    {\n        ItemKey: \"new\",\n        ItemDisplayName: \"Create New Gate Pass\",\n        ItemIconName: \"Add\",\n        ItemAppearance: \"Primary\",\n        ItemIconStyle: \"Regular\",\n        ItemTooltip: \"Add new item\"\n         \n    },\n    {\n        ItemKey: \"reset\",\n        ItemDisplayName: \"Reset\",\n        ItemIconName: \"ArrowClockwise\",\n        ItemAppearance: \"Subtle\",\n        ItemIconStyle: \"Regular\"\n    },\n    {\n        ItemKey: \"view\",\n        ItemDisplayName: \"View\",\n        ItemIconName: \"Eye\",\n        ItemAppearance: \"Primary\",\n        ItemIconStyle: \"Regular\",\n        ItemDisabled: IsBlank(tbl_Items_scr_Dashboard.Selected)\n        \n    }\n)"
+                                    Layout: =If(scr_Dashboard.Size = ScreenSize.Small,'Toolbar.Layout'.IconOnly,'Toolbar.Layout'.IconBefore)
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinWidth: =150
+                                    OnSelect: |+
+                                      =Switch(
+                                          Self.Selected.ItemKey,
+
+                                          "new",
+                                      Set(gblFormMode, FormMode.New);
+                                      NewForm(Detail_Form);
+                                      Set(gblSelectedRow, Defaults(SPList_GatePass_GPDetails));
+                                      Navigate(scr_Detail, ScreenTransition.Fade);
+                                      Set(gblVisible,false);
+                                      Set(gblCurrentSelectedItem1, Blank());
+
+                                          "reset",
+                                              Refresh(SPList_GatePass_GPDetails);
+                                              Reset(cmb_Filter_PassID);
+                                              Reset(cmb_Filter_PassType);
+                                          "view",
+                                              If(
+                                                  !IsBlank(tbl_Items_scr_Dashboard.Selected),
+                                                  Set(gblSelectedRow, tbl_Items_scr_Dashboard.Selected);
+                                                  Set(gblFormMode, FormMode.View);
+                                                  Navigate(scr_Detail, ScreenTransition.Fade));
+                                                  Set(gblCurrentSelectedItem1,Blank());
+                                      )
+                                    Padding: ='Toolbar.Padding'.Large
+                                    Width: =If(scr_Dashboard.Size = ScreenSize.Small,Max(50,Parent.Width*0.33),450)
+                        - scr_Dashboard_Body_Filter:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =If(scr_Dashboard.Size = ScreenSize.Small, 160,80)
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinHeight: =50
+                              LayoutMinWidth: =Parent.Width - (Parent.PaddingBottom + Parent.PaddingTop + Parent.PaddingLeft + Parent.PaddingRight)
+                              LayoutWrap: =true
+                              PaddingBottom: =10
+                              PaddingLeft: =10
+                              PaddingRight: =10
+                              PaddingTop: =10
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - con_scr_Dashboard_Body_Filter_PassID:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.SetByContainer
+                                    DropShadow: =DropShadow.None
+                                    Height: =60
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinWidth: =If(scr_Dashboard.Size = ScreenSize.Small,Parent.Width - Parent.PaddingLeft - Parent.PaddingRight,250)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width / 2
+                                    X: =20
+                                    Y: =10
+                                  Children:
+                                    - con_Filter_PassID:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.SetByContainer
+                                          BorderStyle: =BorderStyle.None
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =Parent.Height /2
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - lbl_Filter_PassID:
+                                              Control: Text@0.0.51
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                FillPortions: =1
+                                                Height: =40
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =Parent.Height /4
+                                                Size: =13
+                                                Text: ="Gate Pass No"
+                                                VerticalAlign: =VerticalAlign.Middle
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Wrap: =false
+                                          - btn_Filter_PassID:
+                                              Control: Button@0.0.45
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: ='ButtonCanvas.Appearance'.Transparent
+                                                Icon: ="Eraser"
+                                                Layout: ='ButtonCanvas.Layout'.IconOnly
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =Parent.Height /4
+                                                LayoutMinWidth: =35
+                                                OnSelect: |
+                                                  =Reset(cmb_Filter_PassID);
+                                                Visible: =If(IsBlank(cmb_Filter_PassID.Selected), false, true)
+                                                Width: =30
+                                    - cmb_Filter_PassID:
+                                        Control: ComboBox@0.0.51
+                                        Properties:
+                                          Appearance: ='ComboboxCanvas.Appearance'.FilledDarker
+                                          FontSize: =11
+                                          Height: =Parent.Height /2
+                                          InputTextPlaceholder: ="Filter Gate Pass No"
+                                          IsSearchable: =false
+                                          Items: =Distinct(SPList_GatePass_GPDetails,GatePassNo)
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =50
+                                          TriggerOutput: ='ComboboxCanvas.TriggerOutput'.Delayed
+                                          Width: =Parent.Width
+                                          X: =40
+                                          Y: =40
+                                        Children:
+                                          - Value:
+                                              Control: ComboBoxDataField@1.5.0
+                                              Variant: textualColumn
+                                              IsLocked: true
+                                              Properties:
+                                                FieldDisplayName: ="Value"
+                                                FieldName: ="Value"
+                                                FieldType: ="s"
+                                                Order: =1
+                              - con_scr_Dashboard_Body_Filter_PassType:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.SetByContainer
+                                    DropShadow: =DropShadow.None
+                                    Height: =60
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinWidth: =If(scr_Dashboard.Size = ScreenSize.Small,Parent.Width - Parent.PaddingLeft - Parent.PaddingRight,250)
+                                    X: =20
+                                    Y: =10
+                                  Children:
+                                    - con_Filter_PassType:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          BorderStyle: =BorderStyle.None
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =Parent.Height /2
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =5
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - lbl_Filter_PassType:
+                                              Control: Text@0.0.51
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Center
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                FillPortions: =1
+                                                Height: =40
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =Parent.Height /4
+                                                Size: =13
+                                                Text: ="Gate Pass Type"
+                                                VerticalAlign: =VerticalAlign.Middle
+                                                Weight: ='TextCanvas.Weight'.Semibold
+                                                Width: =Parent.Width
+                                                Wrap: =false
+                                          - btn_Filter_PassType:
+                                              Control: Button@0.0.45
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: ='ButtonCanvas.Appearance'.Transparent
+                                                Icon: ="Eraser"
+                                                Layout: ='ButtonCanvas.Layout'.IconOnly
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinWidth: =35
+                                                OnSelect: |
+                                                  =Reset(cmb_Filter_PassType);
+                                                Visible: =If(IsBlank(cmb_Filter_PassType.Selected), false, true)
+                                                Width: =30
+                                    - cmb_Filter_PassType:
+                                        Control: ComboBox@0.0.51
+                                        Properties:
+                                          Appearance: ='ComboboxCanvas.Appearance'.FilledDarker
+                                          FontSize: =11
+                                          Height: =Parent.Height /2
+                                          InputTextPlaceholder: ="Filter Gate Type"
+                                          IsSearchable: =false
+                                          Items: =Choices(SPList_GatePass_GPDetails.'Gate Pass Type')
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =50
+                                          TriggerOutput: ='ComboboxCanvas.TriggerOutput'.Delayed
+                                          Width: =Parent.Width
+                                          X: =40
+                                          Y: =40
+                                        Children:
+                                          - Value1:
+                                              Control: ComboBoxDataField@1.5.0
+                                              Variant: textualColumn
+                                              IsLocked: true
+                                              Properties:
+                                                FieldDisplayName: ="Value"
+                                                FieldName: ="Value"
+                                                FieldType: ="s"
+                                                Order: =1
+                        - scr_Dashboard_Form:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =10
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutOverflowY: =LayoutOverflow.Scroll
+                              Width: =Parent.Width - (Parent.PaddingLeft+Parent.PaddingRight)
+                            Children:
+                              - tbl_Items_scr_Dashboard:
+                                  Control: Table@1.0.278
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    ContentLanguage: ="en-US"
+                                    EnableSorting: =If(scr_Dashboard.Size = ScreenSize.Small, 'PowerAppsOneGrid.EnableSorting'.Disable,'PowerAppsOneGrid.EnableSorting'.Enable)
+                                    FillPortions: =1
+                                    Items: |
+                                      =SortByColumns(
+                                          Filter(
+                                              SPList_GatePass_GPDetails,
+                                              IsBlank(cmb_Filter_PassID.Selected.Value) || GatePassNo = cmb_Filter_PassID.Selected.Value,
+                                              IsBlank(cmb_Filter_PassType.Selected.Value) || 'Gate Pass Type'.Value = cmb_Filter_PassType.Selected.Value
+                                          ),
+                                          "Created",
+                                          SortOrder.Descending
+                                      )
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    OnSelect: |-
+                                      =Set(
+                                          gblCurrentSelectedItem,
+                                          tbl_Items_scr_Dashboard.Selected
+                                      );
+                                    ShowAvatar: ="no"
+                                  Children:
+                                    - Status:
+                                        Control: TableDataField@1.5.0
+                                        Variant: textualColumn
+                                        IsLocked: true
+                                        Properties:
+                                          FieldDisplayName: ="Status"
+                                          FieldName: ="Status"
+                                          FieldType: ="E"
+                                          Order: =4
+                                    - ReceiverName1:
+                                        Control: TableDataField@1.5.0
+                                        Variant: textualColumn
+                                        IsLocked: true
+                                        Properties:
+                                          FieldDisplayName: ="ReceiverName"
+                                          FieldName: ="ReceiverName"
+                                          FieldType: ="s"
+                                          Order: =5
+                                    - Requested Date1:
+                                        Control: TableDataField@1.5.0
+                                        Variant: textualColumn
+                                        IsLocked: true
+                                        Properties:
+                                          FieldDisplayName: ="Requested Date"
+                                          FieldName: ="Date"
+                                          FieldType: ="D"
+                                          Order: =6
+                                    - Return Type1:
+                                        Control: TableDataField@1.5.0
+                                        Variant: textualColumn
+                                        IsLocked: true
+                                        Properties:
+                                          FieldDisplayName: ="Return Type"
+                                          FieldName: ="AssetType"
+                                          FieldType: ="E"
+                                          Order: =7
+                                    - Gate Pass Type1:
+                                        Control: TableDataField@1.5.0
+                                        Variant: textualColumn
+                                        IsLocked: true
+                                        Properties:
+                                          FieldDisplayName: ="Gate Pass Type"
+                                          FieldName: ="FormType"
+                                          FieldType: ="E"
+                                          Order: =6
+                                    - GatePassNo1:
+                                        Control: TableDataField@1.5.0
+                                        Variant: textualColumn
+                                        IsLocked: true
+                                        Properties:
+                                          FieldDisplayName: ="GatePassNo"
+                                          FieldName: ="GatePassNo"
+                                          FieldType: ="s"
+                                          Order: =3
+            - rct_Mobile_Close_Menu_scr_Dashboard:
+                Control: Rectangle@2.3.0
+                Properties:
+                  Height: =Parent.Height
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  OnSelect: |-
+                    =UpdateContext({locIsMobileMenuVisible: false})
+                  Visible: =scr_Dashboard.Size = ScreenSize.Small && locIsMobileMenuVisible
+                  Width: =Parent.Width - con_scr_Dashboard.Width

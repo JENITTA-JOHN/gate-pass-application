@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+
+body{
+font-family: Arial;
+font-size:12px;
+margin:0;
+}
+
+/* Header Title */
+.header-title{
+text-align:center;
+font-size:20px;
+font-weight:bold;
+}
+
+/* General table */
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+/* Table borders */
+th,td{
+border:1px solid #d0d0d0;
+padding:8px;
+text-align:left;
+}
+
+/* Blue section header */
+.section-header{
+background:#009EE0;
+color:white;
+font-weight:bold;
+padding:8px;
+}
+
+/* Address boxes */
+.address-box{
+padding:12px;
+vertical-align:top;
+}
+
+/* Top row */
+.toprow{
+margin-bottom:15px;
+}
+
+/* Items table */
+.items th{
+background:#009EE0;
+color:white;
+}
+
+/* Terms Section */
+.terms-header{
+background:#009EE0;
+color:white;
+font-weight:bold;
+padding:8px;
+margin-top:30px;
+}
+
+.terms{
+padding:10px;
+line-height:1.6;
+}
+
+/* Footer */
+.footer{
+margin-top:40px;
+width:100%;
+}
+
+.footer td{
+border:none;
+}
+
+/* System generated note */
+.system-note{
+text-align:center;
+margin-top:40px;
+font-size:11px;
+color:#555;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Logo + Title -->
+<table style="border:none; margin-bottom:20px;">
+<tr>
+
+<td style="width:160px; border:none;">
+@{variables('Sonovision Logo Cyan')}
+</td>
+
+<td class="header-title" style="border:none;">
+Gate Pass – @{outputs('Get_item')?['body/AssetType/Value']}
+</td>
+
+<td style="width:160px; border:none;"></td>
+
+</tr>
+</table>
+
+
+<!-- Gate pass details -->
+<table class="toprow" style="border:none;">
+<tr>
+
+<td style="border:none;">
+<b>Gate Pass No:</b> @{outputs('Get_item')?['body/GatePassNo']}
+</td>
+
+<td style="border:none;">
+<b>Date:</b> @{outputs('Get_item')?['body/Date']}
+</td>
+
+</tr>
+</table>
+
+
+<!-- Address Section -->
+<table style="margin-bottom:20px;">
+<tr>
+
+<td style="width:50%; border:none; padding-right:10px;">
+
+<div class="section-header">Sender Address</div>
+
+<div class="address-box">
+
+<b>Company:</b> Sonovision Aetos Technical Services Pvt. Ltd.<br><br>
+
+<b>Address:</b> @{outputs('Get_item')?['body/SenderAddress']}<br><br>
+
+<b>Mobile:</b> @{outputs('Get_item')?['body/SenderMobileNo']}
+
+</div>
+
+</td>
+
+<td style="width:50%; border:none; padding-left:10px;">
+
+<div class="section-header">Receiver Address</div>
+
+<div class="address-box">
+
+<b>Company Name:</b> @{coalesce(outputs('Get_item')?['body/CompanyName'], 'N/A')}<br><br>
+
+<b>Name:</b> @{outputs('Get_item')?['body/ReceiverName']}<br><br>
+
+<b>Address:</b> @{outputs('Get_item')?['body/ReceiverAddress']}<br><br>
+
+<b>Mobile:</b> @{outputs('Get_item')?['body/ReceiverMobileNo']}
+
+</div>
+
+</td>
+
+</tr>
+</table>
+
+
+<!-- Asset Table -->
+<table class="items">
+
+<tr>
+<th>Description</th>
+<th>Asset Tag and Serial Number</th>
+<th>Quantity</th>
+<th>Purpose</th>
+<th>Rate</th>
+<th>Due Date</th>
+</tr>
+
+@{variables('HTMLBody')}
+
+</table>
+
+
+<!-- Terms and Conditions -->
+<div class="terms-header">
+Terms & Conditions
+</div>
+
+<div class="terms">
+
+1. All materials must be supported by a valid Gate Pass.<br>
+
+2. Returnable materials must be returned within the specified date.<br>
+
+3. Loss or damage of material will be the responsibility of the concerned person/department.<br>
+
+4. Non-returnable materials require proper approval and supporting documents.<br>
+
+5. Security has the right to verify materials at the gate.<br>
+
+6. Any discrepancy may lead to rejection or escalation.<br>
+
+7. Unauthorized movement of goods is strictly prohibited.<br>
+</div>
+
+
+<!-- Requested / Approved -->
+<!-- Requested / Approved -->
+<table class="footer" style="width:100%; margin-top:40px;">
+
+<tr>
+
+<td style="width:50%; vertical-align:top;">
+<b>Requested By</b><br>
+@{outputs('Get_item')?['body/ReceiverName']}
+</td>
+
+<td style="width:50%; text-align:right; vertical-align:top;">
+<b>Approved By</b><br>
+@{variables('varApproverName')}<br>
+@{variables('varApprovalDate')}
+</td>
+
+</tr>
+
+</table>
+
+
+
+<!-- System Generated Note -->
+<div class="system-note">
+
+This is a system-generated Purchase Order. No physical signature is required.
+
+</div>
+
+</body>
+</html>
