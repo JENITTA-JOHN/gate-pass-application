@@ -1,0 +1,11 @@
+@{if(
+    equals(outputs('Get_item_-_Details')?['body/FormType/Value'], 'External'),
+    'External',
+    if(
+        equals(trim(coalesce(outputs('Get_item_-_Details')?['body/AssetType/Value'], '')), 'Returnable'),
+        'Returnable',
+        'Non-Returnable'
+    )
+)}
+
+
