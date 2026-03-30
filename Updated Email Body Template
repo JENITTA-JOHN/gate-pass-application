@@ -1,0 +1,81 @@
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
+  <table align="center" width="600" style="background-color: #ffffff; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
+
+    <!-- Header -->
+    <tr>
+      <td style="background-color: #ffffff; padding: 24px; text-align: center;">
+        @{variables('Sonovision Logo Cyan')}
+        <div style="font-size: 20px; font-weight: bold; color: #009ee0; margin-top: 8px;">Gate Pass Management System</div>
+      </td>
+    </tr>
+
+    <!-- Body -->
+    <tr>
+      <td style="padding: 28px; color: #333;">
+        <p>Dear Approver,</p>
+        <p>
+          This is to inform you that <strong>@{variables('gblApproverName')}</strong> has
+          <strong style="color: #28a745;">approved</strong> the following Gate Pass request.
+          The requester has been notified and the gate pass document has been issued.
+        </p>
+
+        <!-- Details Card -->
+        <table width="100%" style="margin: 20px 0; border-left: 4px solid #28a745; border-radius: 0 6px 6px 0; background-color: #f6fff8; border-collapse: collapse;">
+          <tr>
+            <td style="padding: 10px 16px; width: 50%; vertical-align: top;">
+              <div style="font-size: 11px; color: #009ee0; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Gate Pass ID</div>
+              <div style="font-size: 13px; color: #1a1a1a; margin-top: 3px;">@{outputs('Update_item_')?['body/GatePassNo']}</div>
+            </td>
+            <td style="padding: 10px 16px; width: 50%; vertical-align: top;">
+              <div style="font-size: 11px; color: #009ee0; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Requester Name</div>
+              <div style="font-size: 13px; color: #1a1a1a; margin-top: 3px;">@{outputs('Update_item_')?['body/ReceiverName']}</div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 16px; vertical-align: top;">
+              <div style="font-size: 11px; color: #009ee0; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Gate Pass Type</div>
+              <div style="font-size: 13px; color: #1a1a1a; margin-top: 3px;">@{outputs('Update_item_')?['body/FormType/Value']}</div>
+            </td>
+            <td style="padding: 10px 16px; vertical-align: top;">
+              <div style="font-size: 11px; color: #009ee0; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Return Type</div>
+              <div style="font-size: 13px; color: #1a1a1a; margin-top: 3px;">@{outputs('Update_item_')?['body/AssetType/Value']}</div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 16px; vertical-align: top;">
+              <div style="font-size: 11px; color: #009ee0; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Approved On</div>
+              <div style="font-size: 13px; color: #1a1a1a; margin-top: 3px;">@{utcNow()}</div>
+            </td>
+            <td style="padding: 10px 16px; vertical-align: top;">
+              <div style="font-size: 11px; color: #009ee0; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Status</div>
+              <div style="font-size: 13px; color: #28a745; font-weight: bold; margin-top: 3px;">&#10003; Approved</div>
+            </td>
+          </tr>
+        </table>
+
+        <p>
+          The approved gate pass PDF is attached to this email. You may also open it directly using the button below. 
+        </p>
+
+        <!-- CTA Button -->
+        <p style="text-align: center; margin-top: 24px;">
+          <a href="https://ortecbusiness.sharepoint.com/sites/sonovision-aetos-india/dev-db/GatePassPDF/GatePass_@{replace(outputs('Get_item_-_Details')?['body/GatePassNo'],'/','_')}.pdf"
+             style="background-color: #009ee0; color: #ffffff; padding: 12px 28px; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: bold; display: inline-block;">
+           View Gate Pass Request
+          </a>
+        </p>
+
+        <p style="margin-top: 28px;">Regards,<br><b>Gate Pass System</b></p>
+      </td>
+    </tr>
+
+    <!-- Footer -->
+    <tr>
+      <td style="padding: 14px; font-size: 11px; text-align: center; background: #f4f4f4; border-top: 1px solid #e0e0e0; border-radius: 0 0 8px 8px;">
+        This is an auto-generated email. Please do not reply to this message.<br>
+        For queries, contact <a href="mailto:so-tools@sonovisiongroup.com" style="color: #009ee0;">so-tools@sonovisiongroup.com</a>
+      </td>
+    </tr>
+
+  </table>
+</body>
